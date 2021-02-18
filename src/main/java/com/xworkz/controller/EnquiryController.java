@@ -90,7 +90,7 @@ public class EnquiryController {
 				for (EnquiryDTO enquiryDTO : enquiryList) {
 					if (Objects.nonNull(enquiryDTO)) {
 						enquiryService.validateAndSaveEnquiry(enquiryDTO);
-						logger.info("Enquiry Read from cloud and Saved Successfully");
+						logger.info("Enquiry Read from cloud doc and Saved Successfully");
 					} else {
 						logger.info("The Enquiry has empty values");
 
@@ -111,12 +111,12 @@ public class EnquiryController {
 
 	@RequestMapping(value = "/getLatestEnquiries.do", method = RequestMethod.POST)
 	public ModelAndView getRecentEnquiries() {
-		logger.debug("invoked downloadEnquiryScheduler() in controller");
+		logger.debug("invoked getRecentEnquiries() in controller");
 		ModelAndView modelAndView = new ModelAndView("ViewEnquiry");
 		try {
 			List<EnquiryEntity> enquiryList = enquiryService.getLatestEnquiries();
 			if (Objects.nonNull(enquiryList)) {
-				logger.info("Latest 30 Enquiry Fetched Successfully");
+				logger.info("Latest 30 days Enquiry Fetched Successfully");
 				modelAndView.addObject("enquiryList", enquiryList);
 				return modelAndView;
 			} else {
@@ -139,7 +139,7 @@ public class EnquiryController {
 				List<EnquiryEntity> enquiryList = enquiryService.getCustomEnquiries(fromDate, toDate);
 				if (Objects.nonNull(enquiryList)) {
 					logger.debug("Custom Enquiries Fetched Successfully");
-					modelAndView.addObject("msg", "Custom Enquiries Fetched Successfullye");
+					modelAndView.addObject("msg", "Custom Enquiries Fetched Successfully");
 					modelAndView.addObject("enquiryList", enquiryList);
 					return modelAndView;
 				} else {
@@ -163,11 +163,11 @@ public class EnquiryController {
 			if (Objects.nonNull(enquiryDTO.getEmailId())) {
 				enquiry = enquiryService.getEnquiryByEmail(enquiryDTO.getEmailId());
 				if (Objects.nonNull(enquiry)) {
-					logger.debug("Enquiry Is available for Email:"+enquiry.getEmailId());
+					logger.debug("Enquiry Is available for Email:{}",enquiry.getEmailId());
 					return enquiry;
 				 }
 				else {
-					logger.debug("No enquiries found for the emailId");
+					logger.debug("No enquiries found for the Email:{}",enquiry.getEmailId());
 					return enquiry;
 				}
 			}
@@ -186,11 +186,11 @@ public class EnquiryController {
 			if (Objects.nonNull(enquiryDTO.getFullName())) {
 				enquiry = enquiryService.getEnquiryByFullName(enquiryDTO.getFullName());
 				if (Objects.nonNull(enquiry)) {
-					logger.debug("Enquiry Is available for Name:"+enquiry.getFullName());
+					logger.debug("Enquiry Is available for Name:{}",enquiry.getFullName());
 					return enquiry;
 				 }
 				else {
-					logger.debug("No enquiries found for the Name");
+					logger.debug("No enquiries found for the Name:{}",enquiry.getFullName());
 					return enquiry;
 				}
 			}
@@ -210,11 +210,11 @@ public class EnquiryController {
 			if (Objects.nonNull(enquiryDTO.getMobileNo())) {
 				enquiry = enquiryService.getEnquiryByMobileNo(enquiryDTO.getMobileNo());
 				if (Objects.nonNull(enquiry)) {
-					logger.debug("Enquiry Is available for Mobile No:"+enquiry.getMobileNo());
+					logger.debug("Enquiry Is available for Mobile No:{}",enquiry.getMobileNo());
 					return enquiry;
 				 }
 				else {
-					logger.debug("No enquiries found for the Mobile No");
+					logger.debug("No enquiries found for the Mobile No:{}",enquiry.getMobileNo());
 					return enquiry;
 				}
 			}
@@ -238,7 +238,7 @@ public class EnquiryController {
 					return modelAndView;
 				 }
 				else {
-					logger.info("No enquiries found for the Id");
+					logger.info("No enquiries found for the Id:{}",enquiryId);
 					modelAndView.addObject("enquiry", enquiry);
 					return modelAndView;
 				}
