@@ -168,12 +168,17 @@
 			<artifactId>jsp-api</artifactId>
 			<version>${javax.servlet.jsp.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${javax.jstl.version}</version>
-		</dependency>
+		</dependency> -->		
+		<dependency>
+                      <groupId>jstl</groupId>
+                      <artifactId>jstl</artifactId>
+                      <version>1.2</version>
+                </dependency>
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
