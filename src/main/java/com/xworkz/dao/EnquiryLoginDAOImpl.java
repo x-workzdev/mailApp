@@ -29,6 +29,7 @@ public class EnquiryLoginDAOImpl implements EnquiryLoginDAO {
 		Session session = factory.openSession();
 
 		try {
+			session.beginTransaction();
 			Query query = session.getNamedQuery("userCheck");
 			query.setParameter("user", email);
 			Object result = query.uniqueResult();
@@ -36,6 +37,7 @@ public class EnquiryLoginDAOImpl implements EnquiryLoginDAO {
 			if (Objects.nonNull(result)) {
 				logger.debug("entity found for =" + email);
 				LoginEntity entity = (LoginEntity) result;
+				session.getTransaction().commit();
 				return entity;
 			}
 
@@ -45,6 +47,7 @@ public class EnquiryLoginDAOImpl implements EnquiryLoginDAO {
 				return null;
 			}
 		} catch (Exception e) {
+			session.getTransaction().rollback();
 			logger.error(e.getMessage(), e);
 		}
 
@@ -83,7 +86,8 @@ public class EnquiryLoginDAOImpl implements EnquiryLoginDAO {
 
 		}
 
-		catch (Exception e) {	
+		catch (Exception e) {
+			session.getTransaction().rollback();
 			logger.error(e.getMessage(), e);
 		}
 

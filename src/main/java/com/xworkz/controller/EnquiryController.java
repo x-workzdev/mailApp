@@ -51,7 +51,7 @@ public class EnquiryController {
 		}
 
 		return modelAndView;
-
+   
 	}
 
 	@RequestMapping(value = "/uploadEnquiry.do", method = RequestMethod.POST)
